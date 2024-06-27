@@ -7,7 +7,7 @@ setup(
     name="423-yt-converter",
     py_modules=["423-yt-converter"],
     version="1.0.0",
-    description="",
+    description="This is simple converte from default 440Hz  music to 432Hz music",
     author="jw",
     packages=find_packages(),
     install_requires=[

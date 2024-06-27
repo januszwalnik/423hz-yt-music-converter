@@ -1,5 +1,5 @@
 # 423hz-yt-music-converter
-This is simple python code to download and transform music from YT to 432Hz
+This is simple python code to download and transform music from YT default 440Hz to 432Hz
 
 ## Installation
 ```
