@@ -1,2 +1,2 @@
-ffmpeg-python
-pytube
+ffmpeg-python==0.2.0
+pytube==15.0.0
