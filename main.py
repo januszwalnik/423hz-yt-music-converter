@@ -1,4 +1,4 @@
-import pytube
+import yt_dlp
 import os
 import sys
 import ffmpeg
@@ -8,12 +8,28 @@ def download_yt_music(url: str) -> str:
     Download music directly from the YT portal using url
     """
     output_dir="./music"
+    ydl_opts = {
+            'format': 'bestaudio/best',
+            'postprocessors': [
+                {
+                    'key': 'FFmpegExtractAudio',
+                    'preferredcodec': 'mp3',
+                    'preferredquality': '192',
+                }
+            ],
+            'outtmpl': f'{output_dir}/%(title)s.%(ext)s',
+}
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
-    video=pytube.YouTube(url)
-    audio_stream= video.streams.filter(only_audio=True).first()
-    output_file=audio_stream.download(output_path=output_dir)
-    return output_file
+    
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        ydl.download([url])
+    # Find the downloaded file path
+    # Find the downloaded file path
+    info_dict = ydl.extract_info(url, download=False)
+    title = info_dict.get('title', 'audio')
+    ext = ydl_opts['postprocessors'][0]['preferredcodec']
+    return f"{output_dir}/{title}.{ext}"
 
 def change_frequency_to_432(output_file: str) -> str:
     """
@@ -56,6 +72,7 @@ def main():
     """
     
     file_downloaded = download_yt_music(sys.argv[1])
+    print(file_downloaded)
     changed_file = change_frequency_to_432(file_downloaded)
     check_freq_of_mp3(changed_file)
 
