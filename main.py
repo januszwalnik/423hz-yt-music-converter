@@ -18,7 +18,7 @@ def download_yt_music(url: str) -> str:
                 }
             ],
             'outtmpl': f'{output_dir}/%(title)s.%(ext)s',
-}
+    }
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     
@@ -72,7 +72,6 @@ def main():
     """
     
     file_downloaded = download_yt_music(sys.argv[1])
-    print(file_downloaded)
     changed_file = change_frequency_to_432(file_downloaded)
     check_freq_of_mp3(changed_file)
 
